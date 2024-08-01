@@ -6,17 +6,37 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/07/31 22:03:47 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:45:40 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*getpath(char **envp)
+char	*getpaths(char **envp)
 {
 	int	i;
 	int	j;
 	
+	i = 0;
+	j = 0;
+	while (envp[j])
+	{
+		while(envp[j][i])
+		{
+			if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
+				return (envp[j] + 5);
+			i++;
+		}
+		j++;
+	}
+	return (NULL);
+}
+
+char	*findpath(char *paths)
+{
+	char	**path;
+
+	path = ft_split(paths, ':');
 	
 }
 

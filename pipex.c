@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/01 17:22:39 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:21:23 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,43 @@ char	**getpaths(char **envp)
 	path = ft_split(paths, ':');
 	
 }*/
-void	execcmd(char **paths, char *argv[], char **envp)
+int	execcmd(char **paths, char *argv, char **envp)
 {
 	int		i;
 	char	*path;
 
 	i = 0;
 	path = paths[i];
-	while (execve(path, argv, envp) < 0 && path)
+	while (execve(path, &argv, envp) < 0 && path)
+	{
 		i++;
+		path = paths[i];
+		if (execve(path, &argv, envp) != -1)
+			return(1);
+	}
+	return(0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**args;
+	/*char	**args;*/
 	int		fds[2];
 	pid_t	pid0;
-	char **paths;
+	/*char **paths;*/
 	/*pid_t	pid1;*/
 	
 
 	if (argc != 5)
 		return 0;
-	fds[0] = open(argc[1], O_RDONLY);
-	fds[1] = open(argc[5], O_WRONLY);
+	fds[0] = open(argv[1], O_RDONLY);
+	fds[1] = open(argv[5], O_WRONLY);
 	if (pipe(fds) < 0)
 		exit (1);
 	if((pid0 = fork()) < 0)
 	{
 		exit (1);
 	}
-	else if((pid0 = fork()) == 0);
+	else if((pid0 = fork()) == 0)
 	{
 		close(pid0);
 		dup2(fds[0], STDIN_FILENO);

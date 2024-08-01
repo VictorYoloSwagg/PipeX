@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/01 18:21:23 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:01:38 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,23 @@ char	**getpaths(char **envp)
 	path = ft_split(paths, ':');
 	
 }*/
+
 int	execcmd(char **paths, char *argv, char **envp)
 {
 	int		i;
 	char	*path;
 
 	i = 0;
+	path = malloc(sizeof(char) * (ft_strlen(paths[i])));
 	path = paths[i];
-	while (execve(path, &argv, envp) < 0 && path)
+	while (path)
 	{
-		i++;
-		path = paths[i];
 		if (execve(path, &argv, envp) != -1)
 			return(1);
+		i++;
+		free(path);
+		path = paths[i];
+		
 	}
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/01 18:05:26 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:58:15 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,14 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	}
 	return (tab);
+}
+
+int ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
 }

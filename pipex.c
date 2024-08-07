@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/01 19:01:38 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:31:24 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ char	**getpaths(char **envp)
 	
 }*/
 
+/*int	*getaccess(char *file1, char *file2)
+{
+	
+	int fds[2];
+	
+	if (!access(file1, F_OK))
+		return(NULL);
+	else
+	{
+		access(file1, R_OK);
+		fds[0] = open(file1, O_RDONLY | O_APPEND, 0777);
+	}	
+	if (!access(file2, F_OK))
+		open(file2, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	else
+	{
+		access(file2, W_OK);
+		fds[1] = open(file2, O_WRONLY | O_APPEND, 0777);
+	}	
+}*/
+
 int	execcmd(char **paths, char *argv, char **envp)
 {
 	int		i;
@@ -71,8 +92,23 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return 0;
-	fds[0] = open(argv[1], O_RDONLY);
-	fds[1] = open(argv[5], O_WRONLY);
+	/*fds[0] = open(argv[1], O_RDONLY);
+	fds[1] = open(argv[5], O_WRONLY);*/
+	/*fds = getaccess(argv[1], argv[4]);*/
+	if (!access(argv[1], F_OK))
+		return(0);
+	else
+	{
+		access(argv[1], R_OK);
+		fds[0] = open(argv[1], O_RDONLY | O_APPEND, 0777);
+	}	
+	if (!access(argv[4], F_OK))
+		open(argv[4], O_WRONLY | O_APPEND | O_CREAT, 0777);
+	else
+	{
+		access(argv[4], W_OK);
+		fds[1] = open(argv[4], O_WRONLY | O_APPEND, 0777);
+	}
 	if (pipe(fds) < 0)
 		exit (1);
 	if((pid0 = fork()) < 0)

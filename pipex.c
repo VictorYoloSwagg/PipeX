@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/09 19:40:37 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:52:49 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		fds[0] = open(argv[1], O_RDONLY , 0777);
 		close(pid0);
 		dup2(fds[0], STDIN_FILENO);
-		execcmd(getpaths(envp), argv[2], envp);
+		// execcmd(getpaths(envp), argv[2], envp);
 	}
 	else
 	{

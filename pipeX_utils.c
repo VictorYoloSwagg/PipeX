@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/09 19:33:11 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:20:11 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,20 @@ char	*getpaths(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
+		if (*envp[i] == 'P' && *envp[i] + 1 == 'A' && *envp[i] + 2 == 'T' && *envp[i] + 3 == 'H' && *envp[i] + 4 == '=')
 		{
-			paths = ft_split(envp[j] + 5, ':');
+			paths = ft_split(envp[i] + 5, ':');
 			break;
 		}
 		i++;
 	}
 	i = 0;
+	path = ft_strjoin(paths[i], "/");
 	while(paths[i])
 	{
-		// path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(path, paths[i]);
+		path = ft_strjoin(path, "/");
+		if (execve(path, arg) 
 		i++;
 	}
 	return (NULL);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipeX_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/01 18:58:15 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:33:11 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,29 @@
 char	*getpaths(char **envp)
 {
 	int	i;
-	int	j;
 	char **paths;
+	char	*path;
 	
-	j = 0;
-	while (envp[j])
+	i = 0;
+	while (envp[i])
 	{
-		i = 0;
-		while(envp[j][i])
+		if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
 		{
-			if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
-			{
-				paths = ft_split(envp[j] + 5, ':');
-				break;
-			}
-			i++;
+			paths = ft_split(envp[j] + 5, ':');
+			break;
 		}
-		j++;
+		i++;
 	}
-
-	free_all(paths);
+	i = 0;
+	while(paths[i])
+	{
+		// path = ft_strjoin(paths[i], "/");
+		i++;
+	}
 	return (NULL);
 }
 
-char	*findpath(char *envpaths)
+/*char	*findpath(char *envpaths)
 {
 	char	**paths;
 	char	*path;
@@ -48,7 +47,7 @@ char	*findpath(char *envpaths)
 	paths = ft_split(envpaths, ':');
 	while (paths[i])
 	
-}
+}*/
 
 /*int	*getaccess(char *file1, char *file2)
 {
@@ -71,7 +70,7 @@ char	*findpath(char *envpaths)
 	}	
 }*/
 
-int	execcmd(char **paths, char *argv, char **envp)
+int	execcmd(char *paths, char *argv, char **envp)
 {
 	int		i;
 	char	*path;

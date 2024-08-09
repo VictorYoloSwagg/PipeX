@@ -21,7 +21,8 @@ makelibft:
 
 $(NAME): makelibft $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
-
+	@chmod 777 pipex
+	
 clean:
 	@rm -f $(OBJS)
 	@cd $(LIBFTDIR) && make clean

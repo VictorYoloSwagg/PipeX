@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	free_all(char **str, int i)
+int	free_all(char **str, int i)
 {
 	while (--i >= 0)
 		if (str[i])

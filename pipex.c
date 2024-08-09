@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/07 21:31:24 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:40:37 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,44 @@ int	main(int argc, char **argv, char **envp)
 {
 	/*char	**args;*/
 	int		fds[2];
-	pid_t	pid0;
+	pid_t	pid;
 	/*char **paths;*/
 	/*pid_t	pid1;*/
 	
 
 	if (argc != 5)
 		return 0;
-	/*fds[0] = open(argv[1], O_RDONLY);
-	fds[1] = open(argv[5], O_WRONLY);*/
+	
 	/*fds = getaccess(argv[1], argv[4]);*/
-	if (!access(argv[1], F_OK))
-		return(0);
-	else
-	{
-		access(argv[1], R_OK);
-		fds[0] = open(argv[1], O_RDONLY | O_APPEND, 0777);
-	}	
-	if (!access(argv[4], F_OK))
-		open(argv[4], O_WRONLY | O_APPEND | O_CREAT, 0777);
-	else
-	{
-		access(argv[4], W_OK);
-		fds[1] = open(argv[4], O_WRONLY | O_APPEND, 0777);
-	}
+	// if (!access(argv[1], F_OK))
+	// 	return(0);
+	// else
+	// {
+	// 	access(argv[1], R_OK);
+	// 	fds[0] = open(argv[1], O_RDONLY | O_APPEND, 0777);
+	// }	
+	// if (!access(argv[4], F_OK))
+	// 	open(argv[4], O_WRONLY | O_APPEND | O_CREAT, 0777);
+	// else
+	// {
+	// 	access(argv[4], W_OK);
+	// 	fds[1] = open(argv[4], O_WRONLY | O_APPEND, 0777);
+	// }
 	if (pipe(fds) < 0)
-		exit (1);
-	if((pid0 = fork()) < 0)
+		exit (0);
+	pid = fork();
+	if (pid == -1)
+		exit (0);
+	if(pid0 == 0)
 	{
-		exit (1);
-	}
-	else if((pid0 = fork()) == 0)
-	{
+		fds[0] = open(argv[1], O_RDONLY , 0777);
 		close(pid0);
 		dup2(fds[0], STDIN_FILENO);
 		execcmd(getpaths(envp), argv[2], envp);
 	}
 	else
 	{
-		close(pid0);
+		fds[1] = open(argv[5], O_WRONLY | O_TRUNC | O_CREAT, 0777);
 		dup2(fds[1], STDOUT_FILENO);
 		execcmd(getpaths(envp), argv[3], envp);
 	}

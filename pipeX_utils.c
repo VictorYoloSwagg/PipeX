@@ -12,96 +12,81 @@
 
 #include "pipex.h"
 
-int	free_all(char **str, int i)
-{
-	while (--i >= 0)
-		if (str[i])
-			free(str[i]);
-	return (0);
-}
-
-static int	word_count(char const *s, char c)
+char	*getpaths(char **envp)
 {
 	int	i;
 	int	j;
-
-	i = 0;
+	char **paths;
+	
 	j = 0;
-	while (s[j])
+	while (envp[j])
 	{
-		if (s[j] != c && (s[j + 1] == c || s[j + 1] == '\0'))
+		i = 0;
+		while(envp[j][i])
+		{
+			if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
+			{
+				paths = ft_split(envp[j] + 5, ':');
+				break;
+			}
 			i++;
+		}
 		j++;
 	}
-	return (i);
+
+	free_all(paths);
+	return (NULL);
 }
 
-static void	tab_fill(char *str, char const *s, char c)
+char	*findpath(char *envpaths)
 {
+	char	**paths;
+	char	*path;
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
+	paths = ft_split(envpaths, ':');
+	while (paths[i])
+	
 }
 
-static int	set_mem(char **tab, char const *s, char c)
+/*int	*getaccess(char *file1, char *file2)
 {
-	int	count;
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i])
+	
+	int fds[2];
+	
+	if (!access(file1, F_OK))
+		return(NULL);
+	else
 	{
-		count = 0;
-		while (s[i + count] && s[i + count] != c)
-			count++;
-		if (count > 0)
-		{
-			tab[j] = malloc(sizeof(char) * (count + 1));
-			if (!tab[j])
-				return (free_all(tab, j));
-			tab_fill(tab[j], s + i, c);
-			j++;
-			i = i + count;
-		}
-		else
-			i++;
-	}
-	tab[j] = 0;
-	return (1);
-}
+		access(file1, R_OK);
+		fds[0] = open(file1, O_RDONLY | O_APPEND, 0777);
+	}	
+	if (!access(file2, F_OK))
+		open(file2, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	else
+	{
+		access(file2, W_OK);
+		fds[1] = open(file2, O_WRONLY | O_APPEND, 0777);
+	}	
+}*/
 
-char	**ft_split(char const *s, char c)
+int	execcmd(char **paths, char *argv, char **envp)
 {
-	char	**tab;
 	int		i;
-
-	i = word_count(s, c);
-	tab = malloc(sizeof(char *) * (i + 1));
-	if (!tab)
-		return (NULL);
-	i = set_mem(tab, s, c);
-	if (!i)
-	{
-		free(tab);
-		return (NULL);
-	}
-	return (tab);
-}
-
-int ft_strlen(char *str)
-{
-	int	i;
+	char	*path;
 
 	i = 0;
-	while(str[i])
+	path = malloc(sizeof(char) * (ft_strlen(paths[i])));
+	path = paths[i];
+	while (path)
+	{
+		if (execve(path, &argv, envp) != -1)
+			return(1);
 		i++;
-	return (i);
+		free(path);
+		path = paths[i];
+		
+	}
+	return(0);
 }

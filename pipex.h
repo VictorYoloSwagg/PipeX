@@ -13,14 +13,11 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <unistd.h>
 # include <string.h>
-# include <stdlib.h>
 #include <fcntl.h>
+# include "libft/libft.h"
 
-char	**ft_split(char const *s, char c);
 int 	execcmd(char **paths, char *argv, char **envp);
 char	**getpaths(char **envp);
-int     ft_strlen(char *str);
 
 #endif

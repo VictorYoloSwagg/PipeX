@@ -12,74 +12,7 @@
 
 #include "pipex.h"
 
-char	**getpaths(char **envp)
-{
-	int	i;
-	int	j;
-	
-	i = 0;
-	j = 0;
-	while (envp[j])
-	{
-		while(envp[j][i])
-		{
-			if (envp[j][i] == 'P' && envp[j][i + 1] == 'A' && envp[j][i + 2] == 'T' && envp[j][i + 3] == 'H' && envp[j][i + 4] == '=')
-				return (ft_split(envp[j] + 5, ':'));
-			i++;
-		}
-		j++;
-	}
-	return (NULL);
-}
 
-/*char	*findpath(char *paths)
-{
-	char	**path;
-
-	path = ft_split(paths, ':');
-	
-}*/
-
-/*int	*getaccess(char *file1, char *file2)
-{
-	
-	int fds[2];
-	
-	if (!access(file1, F_OK))
-		return(NULL);
-	else
-	{
-		access(file1, R_OK);
-		fds[0] = open(file1, O_RDONLY | O_APPEND, 0777);
-	}	
-	if (!access(file2, F_OK))
-		open(file2, O_WRONLY | O_APPEND | O_CREAT, 0777);
-	else
-	{
-		access(file2, W_OK);
-		fds[1] = open(file2, O_WRONLY | O_APPEND, 0777);
-	}	
-}*/
-
-int	execcmd(char **paths, char *argv, char **envp)
-{
-	int		i;
-	char	*path;
-
-	i = 0;
-	path = malloc(sizeof(char) * (ft_strlen(paths[i])));
-	path = paths[i];
-	while (path)
-	{
-		if (execve(path, &argv, envp) != -1)
-			return(1);
-		i++;
-		free(path);
-		path = paths[i];
-		
-	}
-	return(0);
-}
 
 int	main(int argc, char **argv, char **envp)
 {

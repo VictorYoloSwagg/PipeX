@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/10 17:49:07 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:47:05 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ char	*getpaths(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (*envp[i] == 'P' && *envp[i] + 1 == 'A' && *envp[i] + 2 == 'T' && *envp[i] + 3 == 'H' && *envp[i] + 4 == '=')
-		{
+		if (ft_strnstr(envp[i], "PATH=", 5) != NULL)
 			return (envp[i] + 5);
-			break;
-		}
 		i++;
 	}
 	return (NULL);
@@ -44,7 +41,6 @@ char	*getpaths(char **envp)
 
 char	*findpath(char *cmd, char **envp)
 {
-
 	int	i;
 	char **paths;
 	char *path;

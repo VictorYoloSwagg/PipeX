@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:02:42 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/10 16:24:09 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:49:40 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /*int 	execcmd(char **paths, char *argv, char **envp);*/
 void	free_tab(char **tab);
-char	**getpaths(char **envp);
+char	*getpaths(char **envp);
 void	exec(char *cmd, char **envp);
 char	*findpath(char *cmd, char **envp);
 

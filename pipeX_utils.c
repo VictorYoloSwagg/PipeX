@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/10 16:26:29 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:49:07 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-char	**getpaths(char **envp)
+char	*getpaths(char **envp)
 {
 	int	i;
 	
@@ -34,7 +34,7 @@ char	**getpaths(char **envp)
 	{
 		if (*envp[i] == 'P' && *envp[i] + 1 == 'A' && *envp[i] + 2 == 'T' && *envp[i] + 3 == 'H' && *envp[i] + 4 == '=')
 		{
-			return (ft_split(envp[i] + 5, ':'));
+			return (envp[i] + 5);
 			break;
 		}
 		i++;
@@ -52,7 +52,7 @@ char	*findpath(char *cmd, char **envp)
 	char **cmds;
 	
 	i = 0;
-	paths = getpaths(envp);
+	paths = ft_split(getpaths(envp), ':');
 	cmds = ft_split(cmd, ' ');
 	while(paths[i])
 	{

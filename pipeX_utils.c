@@ -12,11 +12,26 @@
 
 #include "pipex.h"
 
-char	*getpaths(char **envp)
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+char	*getpaths(char *cmd, char **envp)
 {
 	int	i;
 	char **paths;
 	char	*path;
+	char **cmds;
+	char	*cmdpath;
 	
 	i = 0;
 	while (envp[i])
@@ -29,15 +44,36 @@ char	*getpaths(char **envp)
 		i++;
 	}
 	i = 0;
-	path = ft_strjoin(paths[i], "/");
+	cmds = ft_split(cmd, ' ');
 	while(paths[i])
 	{
-		path = ft_strjoin(path, paths[i]);
-		path = ft_strjoin(path, "/");
-		if (execve(path, arg) 
+		path = ft_strjoin(paths[i], "/");
+		cmdpath = ft_strjoin(path, cmds[0]);
+		if (access(cmdpath, F_OK | X_OK) == 0)
+		{
+			free_tab(cmds);
+			return (cmdpath);
+		}
+		free(cmdpath);
 		i++;
 	}
+	free_tab(cmds);
+	free_tab(paths)
 	return (NULL);
+}
+
+void	exec(char *cmd, char **envp)
+{
+	char	**cmds;
+	char	*path;
+
+	cmds = ft_split(cmd, ' ');
+	path = get_path(cmds[0], envp);
+	if (execve(path, cmds, envp) == -1)
+	{
+		free_tab(cmds);
+		exit(0);
+	}
 }
 
 /*char	*findpath(char *envpaths)
@@ -73,7 +109,7 @@ char	*getpaths(char **envp)
 	}	
 }*/
 
-int	execcmd(char *paths, char *argv, char **envp)
+void	execcmd(char *paths, char *argv, char **envp)
 {
 	int		i;
 	char	*path;

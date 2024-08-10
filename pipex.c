@@ -16,68 +16,36 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	/*char	**args;*/
 	int		fds[2];
+	int		files[2];
 	pid_t	pid;
-	/*char **paths;*/
-	/*pid_t	pid1;*/
 	
 
 	if (argc != 5)
 		return 0;
-	
-	/*fds = getaccess(argv[1], argv[4]);*/
-	// if (!access(argv[1], F_OK))
-	// 	return(0);
-	// else
-	// {
-	// 	access(argv[1], R_OK);
-	// 	fds[0] = open(argv[1], O_RDONLY | O_APPEND, 0777);
-	// }	
-	// if (!access(argv[4], F_OK))
-	// 	open(argv[4], O_WRONLY | O_APPEND | O_CREAT, 0777);
-	// else
-	// {
-	// 	access(argv[4], W_OK);
-	// 	fds[1] = open(argv[4], O_WRONLY | O_APPEND, 0777);
-	// }
 	if (pipe(fds) < 0)
 		exit (0);
 	pid = fork();
 	if (pid == -1)
 		exit (0);
-	if(pid0 == 0)
+	if(pid == 0)
 	{
-		fds[0] = open(argv[1], O_RDONLY , 0777);
-		close(pid0);
-		dup2(fds[0], STDIN_FILENO);
-		// execcmd(getpaths(envp), argv[2], envp);
-	}
-	else
-	{
-		fds[1] = open(argv[5], O_WRONLY | O_TRUNC | O_CREAT, 0777);
-		dup2(fds[1], STDOUT_FILENO);
-		execcmd(getpaths(envp), argv[3], envp);
-	}
-	/*
-	open file 1
-	trouver commande1
-	open file 2
-	trouver commande2
-	creer pipe
-	fork?
-	child
-		dup2
-		fermer file1
-		femer pipe0
-		exec commande1
 		
-	parent
-		dup2
-		fermer pipe1
-		exec commande 2
-		
-	fermer 
-	*/
-	return 0;
+		files[0] = open(argv[1], O_RDONLY, 0777);
+		if (files[0] == -1)
+			exit();
+		dup2(fd[1], STDOUT_FILENO);
+		dup2(files[0], STDIN_FILENO);
+		close(fd[0]);
+		execcmd(argv[2], envp);
+	}
+	waitpid(pid, NULL, 0);
+	files[1] = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (files[1] == -1)
+		error();
+	dup2(fd[0], STDIN_FILENO);
+	dup2(files[1], STDOUT_FILENO);
+	close(fd[1]);
+	execcmd(argv[3], envp);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/09 21:20:11 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:26:29 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,34 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-char	*getpaths(char *cmd, char **envp)
+char	**getpaths(char **envp)
 {
 	int	i;
-	char **paths;
-	char	*path;
-	char **cmds;
-	char	*cmdpath;
 	
 	i = 0;
 	while (envp[i])
 	{
 		if (*envp[i] == 'P' && *envp[i] + 1 == 'A' && *envp[i] + 2 == 'T' && *envp[i] + 3 == 'H' && *envp[i] + 4 == '=')
 		{
-			paths = ft_split(envp[i] + 5, ':');
+			return (ft_split(envp[i] + 5, ':'));
 			break;
 		}
 		i++;
 	}
+	return (NULL);
+}
+
+char	*findpath(char *cmd, char **envp)
+{
+
+	int	i;
+	char **paths;
+	char *path;
+	char *cmdpath;
+	char **cmds;
+	
 	i = 0;
+	paths = getpaths(envp);
 	cmds = ft_split(cmd, ' ');
 	while(paths[i])
 	{
@@ -58,7 +67,7 @@ char	*getpaths(char *cmd, char **envp)
 		i++;
 	}
 	free_tab(cmds);
-	free_tab(paths)
+	free_tab(paths);
 	return (NULL);
 }
 
@@ -68,7 +77,7 @@ void	exec(char *cmd, char **envp)
 	char	*path;
 
 	cmds = ft_split(cmd, ' ');
-	path = get_path(cmds[0], envp);
+	path = findpath(cmds[0], envp);
 	if (execve(path, cmds, envp) == -1)
 	{
 		free_tab(cmds);
@@ -76,17 +85,7 @@ void	exec(char *cmd, char **envp)
 	}
 }
 
-/*char	*findpath(char *envpaths)
-{
-	char	**paths;
-	char	*path;
-	int	i;
 
-	i = 0;
-	paths = ft_split(envpaths, ':');
-	while (paths[i])
-	
-}*/
 
 /*int	*getaccess(char *file1, char *file2)
 {
@@ -109,7 +108,7 @@ void	exec(char *cmd, char **envp)
 	}	
 }*/
 
-void	execcmd(char *paths, char *argv, char **envp)
+/*void	execcmd(char *paths, char *argv, char **envp)
 {
 	int		i;
 	char	*path;
@@ -127,4 +126,4 @@ void	execcmd(char *paths, char *argv, char **envp)
 		
 	}
 	return(0);
-}
+}*/

@@ -3,8 +3,10 @@
 
 int main(int argc, char **argv, char **envp)
 {
-    char *path;
-    path = findpath(argv[1], envp);
-    printf("%s %d\n", path);
+    int i;
+
+    i = 0;
+    i += exec(argv[1], argv, envp);
+    printf("%d \n %d\n",i , argc);
     return 0;
 }

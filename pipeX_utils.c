@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:03 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:43:02 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*findpath(char *cmd, char **envp)
 			return (cmdpath);
 		}
 		free(cmdpath);
+		free(path);
 		i++;
 	}
 	free_tab(cmds);
@@ -67,20 +68,20 @@ char	*findpath(char *cmd, char **envp)
 	return (NULL);
 }
 
-int	exec(char *cmd, char **envp)
+void	exec(char *cmd, char **envp)
 {
 	char	**cmds;
 	char	*path;
 
 	cmds = ft_split(cmd, ' ');
-	path = findpath(cmds[0], envp);
+	path = findpath(cmd, envp);
 	if (execve(path, cmds, envp) == -1)
 	{
 		free_tab(cmds);
-		/*exit(0);*/
-		return(0);
+		exit(0);
+		/*return(0);*/
 	}
-	return (1);
+	/*return (1);*/
 }
 
 

@@ -3,10 +3,6 @@
 
 int main(int argc, char **argv, char **envp)
 {
-    int i;
-
-    i = 0;
-    i += exec(argv[1], envp);
-    printf("%d \n %d\n",i , argc);
+    exec(argv[1], envp);
     return 0;
 }

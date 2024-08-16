@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/16 18:53:19 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:25:07 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	parent_process(char *file2, int *pipe_fds, char *cmd, /*pid_t pid,*/
 	file = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (file == -1)
 		exit(0);
-	dup2(file, STDIN_FILENO);
-	dup2(pipe_fds[0], STDOUT_FILENO);
+	dup2(pipe_fds[0], STDIN_FILENO);
+	dup2(file, STDOUT_FILENO);
 	close(pipe_fds[1]);
 	close(pipe_fds[0]);
 	close(file);

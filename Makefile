@@ -1,36 +1,27 @@
 NAME		= pipex
-
 LIBFTNAME 	= libft.a
-
 CC			= gcc
-
 CFLAGS		= -Wall -Wextra -Werror
-
 LIBFTDIR 	= libft/
-
 SRCS		= pipex_utils.c pipex.c
-
-OBJS	= $(SRCS:.c=.o)
+OBJS		= $(SRCS:.c=.o)
 
 all:	$(NAME)
 
+# Compilation de la libft
 makelibft:
 	@make -C $(LIBFTDIR)
-	@cp $(LIBFTDIR)/$(LIBFTNAME) .
-	@mv $(LIBFTNAME) $(NAME)
 
+# Compilation de l'exécutable pipex
 $(NAME): makelibft $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	@chmod 777 pipex
-	
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
+
 clean:
 	@rm -f $(OBJS)
-	@cd $(LIBFTDIR) && make clean
-	
+	@make -C $(LIBFTDIR) clean
+
 fclean: clean
 	@rm -f $(NAME)
-	@cd $(LIBFTDIR) && make fclean
+	@make -C $(LIBFTDIR) fclean
 
-re: fclean $(NAME)
-
-.PHONY: all clean fclean re
+re: fclean all

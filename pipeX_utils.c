@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipeX_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/16 18:43:02 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:29:47 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i])
 	{
 		free(tab[i]);
@@ -48,6 +50,8 @@ char	*findpath(char *cmd, char **envp)
 	char **cmds;
 	
 	i = 0;
+	if (!cmd)
+		return (NULL);
 	paths = ft_split(getpaths(envp), ':');
 	cmds = ft_split(cmd, ' ');
 	while(paths[i])
@@ -73,6 +77,8 @@ void	exec(char *cmd, char **envp)
 	char	**cmds;
 	char	*path;
 
+	if (!cmd)
+		return ;
 	cmds = ft_split(cmd, ' ');
 	path = findpath(cmd, envp);
 	if (execve(path, cmds, envp) == -1)

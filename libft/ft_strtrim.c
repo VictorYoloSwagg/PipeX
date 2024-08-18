@@ -104,5 +104,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 		str = fill_str(begin, end);
 	if (!str)
 		return (NULL);
-	return (str); 
+	return (str);
 }

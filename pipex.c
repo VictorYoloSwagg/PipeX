@@ -6,15 +6,16 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/16 19:25:07 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:24:32 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-static void	child_process(char 	*file1, int *pipe_fds,char *cmd, char **envp)
+
+static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 {
-	int file;
-	
+	int	file;
+
 	file = open(file1, O_RDONLY, 0777);
 	if (file == -1)
 		exit(0);
@@ -26,11 +27,10 @@ static void	child_process(char 	*file1, int *pipe_fds,char *cmd, char **envp)
 	exec(cmd, envp);
 }
 
-static void	parent_process(char *file2, int *pipe_fds, char *cmd, /*pid_t pid,*/ char **envp)
+static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
 {
-	int file;
+	int	file;
 
-	/*waitpid(pid, NULL, 0);*/
 	file = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (file == -1)
 		exit(0);
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		pipe_fds[2];
 	pid_t	pid;
-	
+
 	if (argc != 5)
 		return (0);
 	if (pipe(pipe_fds) == -1)
@@ -54,10 +54,8 @@ int	main(int argc, char **argv, char **envp)
 	pid = fork();
 	if (pid == -1)
 		return (0);
-	if(pid == 0)
+	if (pid == 0)
 		child_process(argv[1], pipe_fds, argv[2], envp);
-	parent_process(argv[4], pipe_fds, argv[3], /*pid, */envp);
-	// close(pipe_fds[0]);
-	// close(pipe_fds[1]);
+	parent_process(argv[4], pipe_fds, argv[3], envp);
 	return (1);
 }

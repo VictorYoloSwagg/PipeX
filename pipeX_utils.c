@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipeX_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/16 20:29:47 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:27:32 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_tab(char **tab)
 char	*getpaths(char **envp)
 {
 	int	i;
-	
+
 	i = 0;
 	while (envp[i])
 	{
@@ -43,18 +43,18 @@ char	*getpaths(char **envp)
 
 char	*findpath(char *cmd, char **envp)
 {
-	int	i;
-	char **paths;
-	char *path;
-	char *cmdpath;
-	char **cmds;
-	
+	int		i;
+	char	**paths;
+	char	*path;
+	char	*cmdpath;
+	char	**cmds;
+
 	i = 0;
 	if (!cmd)
 		return (NULL);
 	paths = ft_split(getpaths(envp), ':');
 	cmds = ft_split(cmd, ' ');
-	while(paths[i])
+	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
 		cmdpath = ft_strjoin(path, cmds[0]);
@@ -85,12 +85,8 @@ void	exec(char *cmd, char **envp)
 	{
 		free_tab(cmds);
 		exit(0);
-		/*return(0);*/
 	}
-	/*return (1);*/
 }
-
-
 
 /*int	*getaccess(char *file1, char *file2)
 {

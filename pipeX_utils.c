@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/18 17:27:32 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:45:39 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-char	*getpaths(char **envp)
+char	*get_paths(char **envp)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ char	*getpaths(char **envp)
 	return (NULL);
 }
 
-char	*findpath(char *cmd, char **envp)
+char	*find_cmd_path(char *cmd, char **envp)
 {
 	int		i;
 	char	**paths;
@@ -52,7 +52,7 @@ char	*findpath(char *cmd, char **envp)
 	i = 0;
 	if (!cmd)
 		return (NULL);
-	paths = ft_split(getpaths(envp), ':');
+	paths = ft_split(get_paths(envp), ':');
 	cmds = ft_split(cmd, ' ');
 	while (paths[i])
 	{
@@ -72,7 +72,7 @@ char	*findpath(char *cmd, char **envp)
 	return (NULL);
 }
 
-void	exec(char *cmd, char **envp)
+void	exec_cmd(char *cmd, char **envp)
 {
 	char	**cmds;
 	char	*path;
@@ -80,7 +80,7 @@ void	exec(char *cmd, char **envp)
 	if (!cmd)
 		return ;
 	cmds = ft_split(cmd, ' ');
-	path = findpath(cmd, envp);
+	path = find_cmd_path(cmd, envp);
 	if (execve(path, cmds, envp) == -1)
 	{
 		free_tab(cmds);

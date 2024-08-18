@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/18 17:24:32 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:46:21 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 	close(pipe_fds[1]);
 	close(pipe_fds[0]);
 	close(file);
-	exec(cmd, envp);
+	exec_cmd(cmd, envp);
 }
 
 static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
@@ -39,7 +39,7 @@ static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
 	close(pipe_fds[1]);
 	close(pipe_fds[0]);
 	close(file);
-	exec(cmd, envp);
+	exec_cmd(cmd, envp);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,11 +6,26 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/19 19:03:15 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:07:25 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
 
 static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 {

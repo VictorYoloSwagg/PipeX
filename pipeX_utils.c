@@ -6,26 +6,11 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/19 17:58:15 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:07:17 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
 
 void	free_tabs(char **tab1, char **tab2)
 {

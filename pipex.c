@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/19 17:13:15 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:06:36 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 	if (access(file1, F_OK) == 0)
 		file = open(file1, O_RDONLY, 0777);
 	else
-		{
-			ft_putstr_fd("pipex: no such file or directory: ", 2);
-			ft_putstr_fd(file1, 2);
-			ft_putstr_fd("\n", 2);
-			return ;
-		}
+	{
+		ft_putstr_fd("pipex: no such file or directory: ", 2);
+		ft_putstr_fd(file1, 2);
+		ft_putstr_fd("\n", 2);
+		return ;
+	}
 	if (file == -1)
 		return ;
 	dup2(file, STDIN_FILENO);
@@ -64,6 +64,11 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	if (pid == 0)
 		child_process(argv[1], pipe_fds, argv[2], envp);
-	parent_process(argv[4], pipe_fds, argv[3], envp);
+	else
+	{
+		waitpid(pid, NULL, 0);
+		parent_process(argv[4], pipe_fds, argv[3], envp);
+	}
+		
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:02:42 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/18 17:45:14 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:25:21 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/wait.h>
 # include "libft/libft.h"
 
-/*int 	execcmd(char **paths, char *argv, char **envp);*/
 void	free_tab(char **tab);
 char	*get_paths(char **envp);
 void	exec_cmd(char *cmd, char **envp);

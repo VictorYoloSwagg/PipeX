@@ -8,11 +8,9 @@ OBJS		= $(SRCS:.c=.o)
 
 all:	$(NAME)
 
-# Compilation de la libft
 makelibft:
 	@make -C $(LIBFTDIR)
 
-# Compilation de l'exécutable pipex
 $(NAME): makelibft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
 

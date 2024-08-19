@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/18 17:45:39 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:17:25 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	free_tabs(char **tab1, char **tab2)
+{
+	free_tab(tab1);
+	free_tab(tab2);
+}
+
+void	free_strs(char *str1, char *str2)
+{
+	free(str1);
+	free(str2);
 }
 
 char	*get_paths(char **envp)
@@ -49,26 +61,22 @@ char	*find_cmd_path(char *cmd, char **envp)
 	char	*cmdpath;
 	char	**cmds;
 
-	i = 0;
+	i = -1;
 	if (!cmd)
 		return (NULL);
 	paths = ft_split(get_paths(envp), ':');
 	cmds = ft_split(cmd, ' ');
-	while (paths[i])
+	while (paths[++i])
 	{
 		path = ft_strjoin(paths[i], "/");
 		cmdpath = ft_strjoin(path, cmds[0]);
 		if (access(cmdpath, F_OK | X_OK) == 0)
-		{
-			free_tab(cmds);
-			return (cmdpath);
-		}
-		free(cmdpath);
-		free(path);
-		i++;
+			return (free(path), free_tab(cmds), cmdpath);
+		free_strs(cmdpath, path);
 	}
-	free_tab(cmds);
-	free_tab(paths);
+	ft_putstr_fd("pipex: command not found: ", 2);
+	ft_putstr_fd(cmds[0], 2);
+	free_tabs(cmds, paths);
 	return (NULL);
 }
 

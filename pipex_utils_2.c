@@ -6,9 +6,11 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:28:06 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/20 21:29:28 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/20 22:13:32 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "pipex.h"
 
 void	free_tab(char **tab)
 {

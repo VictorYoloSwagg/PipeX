@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:11:23 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/20 21:29:15 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/20 22:11:41 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ int	main(int argc, char **argv, char **envp)
 		waitpid(pid, NULL, 0);
 		parent_process(argv[4], pipe_fds, argv[3], envp);
 	}
-	system ("leaks pipex");
 	return (1);
 }

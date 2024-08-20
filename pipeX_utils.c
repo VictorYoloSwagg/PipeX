@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:40:16 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/20 21:36:44 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/20 22:13:21 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*find_path(char **paths, char **cmds, int i)
 {
 	char	*path;
 	char	*cmdpath;
-	
+
 	path = ft_strjoin(paths[i], "/");
 	cmdpath = ft_strjoin(path, cmds[0]);
 	if (access(cmdpath, F_OK | X_OK) == 0)

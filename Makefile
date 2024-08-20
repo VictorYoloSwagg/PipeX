@@ -1,7 +1,7 @@
 NAME		= pipex
 LIBFTNAME 	= libft.a
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 LIBFTDIR 	= libft/
 SRCS		= pipex_utils.c pipex.c
 OBJS		= $(SRCS:.c=.o)
@@ -12,7 +12,7 @@ makelibft:
 	@make -C $(LIBFTDIR)
 
 $(NAME): makelibft $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
+	$(CC)  $(CFLAGS) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)

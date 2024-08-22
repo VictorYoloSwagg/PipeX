@@ -18,17 +18,23 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 
 	file = -1;
 	if (access(file1, F_OK) == 0)
-		file = open(file1, O_RDONLY, 0777);
+	{
+		if (access(file1, F_OK & R_OK) == 0)
+			file = open(file1, O_RDONLY, 0777);
+		else
+			print_errors(3, NULL, file1);
+	}
 	else
 		print_errors(1, NULL, file1);
 	if (file == -1)
-		return ;
+		exit (1);
 	dup2(file, STDIN_FILENO);
 	dup2(pipe_fds[1], STDOUT_FILENO);
 	close(pipe_fds[1]);
 	close(pipe_fds[0]);
 	close(file);
 	exec_cmd(cmd, envp);
+	exit(0);
 }
 
 static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
@@ -39,13 +45,14 @@ static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
 	if (find_cmd_path(cmd, envp) != NULL)
 		file = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (file == -1)
-		exit(0);
+		exit(1);
 	dup2(pipe_fds[0], STDIN_FILENO);
 	dup2(file, STDOUT_FILENO);
 	close(pipe_fds[1]);
 	close(pipe_fds[0]);
 	close(file);
 	exec_cmd(cmd, envp);
+	exit(0);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:31:36 by vpramann          #+#    #+#             */
-/*   Updated: 2024/08/22 18:49:44 by vpramann         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:38:12 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ void	print_errors(int i, char **cmds, char *file1)
 		ft_putstr_fd(file1, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	else
+	else if (i == 2)
 	{
 		ft_putstr_fd("pipex: wrong number of arguments", 2);
+		ft_putstr_fd("\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("pipex: permission denied: ", 2);
+		ft_putstr_fd(file1, 2);
 		ft_putstr_fd("\n", 2);
 	}
 	return ;

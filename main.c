@@ -20,7 +20,7 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 	if (access(file1, F_OK) == 0)
 	{
 		if (access(file1, F_OK & R_OK) == 0)
-			file = open(file1, O_RDONLY, 0777);
+			file = open(file1, O_RDONLY, 0444);
 		else
 			print_errors(3, NULL, file1);
 	}
@@ -43,7 +43,7 @@ static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
 
 	file = -1;
 	if (find_cmd_path(cmd, envp) != NULL)
-		file = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		file = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0622);
 	if (file == -1)
 		exit(1);
 	dup2(pipe_fds[0], STDIN_FILENO);

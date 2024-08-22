@@ -84,6 +84,6 @@ void	exec_cmd(char *cmd, char **envp)
 	{
 		free_tab(cmds);
 		free(path);
-		exit(0);
+		exit(1);
 	}
 }

@@ -3,7 +3,7 @@ LIBFTNAME 	= libft.a
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 LIBFTDIR 	= libft/
-SRCS		= pipex_utils.c pipex.c pipex_utils_2.c
+SRCS		= main.c free.c path.c errors.c
 OBJS		= $(SRCS:.c=.o)
 
 all:	$(NAME)

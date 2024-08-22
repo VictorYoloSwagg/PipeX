@@ -54,18 +54,21 @@ int	main(int argc, char **argv, char **envp)
 	pid_t	pid;
 
 	if (argc != 5)
-		return (0);
+	{
+		print_errors(2, NULL, NULL);
+		return (1);
+	}
 	if (pipe(pipe_fds) == -1)
-		return (0);
+		return (1);
 	pid = fork();
 	if (pid == -1)
-		return (0);
+		return (1);
 	if (pid == 0)
 		child_process(argv[1], pipe_fds, argv[2], envp);
 	else
 	{
-		waitpid(pid, NULL, 0);
+		wait(0);
 		parent_process(argv[4], pipe_fds, argv[3], envp);
 	}
-	return (1);
+	return (0);
 }

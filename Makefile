@@ -1,7 +1,7 @@
 NAME		= pipex
 LIBFTNAME 	= libft.a
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 LIBFTDIR 	= libft/
 SRCS		= main.c free.c path.c errors.c
 OBJS		= $(SRCS:.c=.o)

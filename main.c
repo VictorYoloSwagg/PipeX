@@ -19,7 +19,7 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 	file = -1;
 	if (access(file1, F_OK) == 0)
 	{
-		if (access(file1, F_OK & R_OK) == 0)
+		if (access(file1, R_OK) == 0)
 			file = open(file1, O_RDONLY, 0444);
 		else
 			print_errors(3, NULL, file1);

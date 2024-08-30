@@ -34,7 +34,6 @@ static void	child_process(char *file1, int *pipe_fds, char *cmd, char **envp)
 	close(pipe_fds[0]);
 	close(file);
 	exec_cmd(cmd, envp);
-	exit(0);
 }
 
 static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
@@ -52,7 +51,6 @@ static void	parent_process(char *file2, int *pipe_fds, char *cmd, char **envp)
 	close(pipe_fds[0]);
 	close(file);
 	exec_cmd(cmd, envp);
-	exit(0);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -27,10 +27,7 @@ void	print_errors(int i, char **cmds, char *file1)
 		ft_putstr_fd("\n", 2);
 	}
 	else if (i == 2)
-	{
-		ft_putstr_fd("pipex: wrong number of arguments", 2);
-		ft_putstr_fd("\n", 2);
-	}
+		ft_putstr_fd("pipex: wrong number of arguments\n", 2);
 	else
 	{
 		ft_putstr_fd("pipex: permission denied: ", 2);
